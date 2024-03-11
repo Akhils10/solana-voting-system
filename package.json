@@ -1,0 +1,40 @@
+{
+  "name": "voting_system",
+  "version": "1.0.0",
+  "description": "A simple voting system built on solana blockchain",
+  "main": "dist/src/server.js",
+  "license": "MIT",
+  "scripts": {
+    "build:server": "cd server && npx tsc",
+    "start:server": "cd server && node dist/server.js",
+    "dev:server": "cd server && nodemon src/server.ts",
+    "test:server": "cd server && jest",
+    "build:program": "cargo build-bpf --manifest-path=./program/Cargo.toml --bpf-out-dir=program/dist",
+    "clean:program": "cargo clean --manifest-path=./program/Cargo.toml && rm -rf ./program/dist",
+    "test:program": "cargo test-bpf --manifest-path=./program/Cargo.toml"
+  },
+  "dependencies": {
+    "borsh": "^2.0.0",
+    "bs58": "^5.0.0",
+    "buffer": "^6.0.3",
+    "dotenv": "^16.4.5",
+    "errorhandler": "^1.5.1",
+    "express": "^4.18.3",
+    "pino": "^8.19.0",
+    "reflect-metadata": "^0.2.1",
+    "tsyringe": "^4.8.0"
+  },
+  "devDependencies": {
+    "@solana/web3.js": "^1.91.0",
+    "@types/errorhandler": "^1.5.3",
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.25",
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^6.3.4",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.2"
+  }
+}
