@@ -6,8 +6,7 @@
   "license": "MIT",
   "scripts": {
     "build:server": "cd server && npx tsc",
-    "start:server": "cd server && node dist/server.js",
-    "dev:server": "cd server && nodemon src/server.ts",
+    "start:server": "cd server && npx tsc && node dist/server.js",
     "test:server": "cd server && jest",
     "build:program": "cargo build-bpf --manifest-path=./program/Cargo.toml --bpf-out-dir=program/dist",
     "clean:program": "cargo clean --manifest-path=./program/Cargo.toml && rm -rf ./program/dist",

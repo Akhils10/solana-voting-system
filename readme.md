@@ -4,12 +4,48 @@
 /client
 /server
 
-You can build the Solana program either locally or in [Solana Playgroup]([https://beta.solpg.io/])
+### Implementation considerations
 
-# Serveer
+A get_vote_count("Best Crypto")’ function is required from reqested task specifications to return the current count of votes for each option.
 
-Make sure you run 'yarn'
-Then run 'yarn dev'
+Solana programs entrypoints should return the ProgramResult (ResultGeneric<(), ProgramError>). The data stored is fetching directly from the storage account's data property. However, I wrote the function but instead of returning, log the vote count to program logs. On the nodejs backend, an api and test is provided to implement this function. 
+
+Program's entry point
+Instructions sent to the program triggers the `process_instruction` function
+The processor deserializes the instruction to get the actual instruction and then route the execution to the neccessary function. 
+The accounts array holds the account the program will write data to and should be marked as writable.
+Each voting topic is stored in it's own account.
+
+Also, please note that this program is only a simple voting program and some other factors need to be put in place for a robust and comprehensive voting program. Each voting topic is created on it's own account which is a better structure for the voting system. So, a single topic represents an account. To vote on the topic, the program will be passed the account in the [accounts].
+
+To close a topic, we simply just need to close the account
+
+To futher improve on the program, the `VotingTopic` state should track the duration for the vote, pubKey of the owner, etc. The owner will be able to reemove or add more options, temporarily pause the voting and be able to schedule when voting begins.
+
+
+# Program.
+The solana program code lives in /program folder.
+You can build and deploy the program either locally or in [Solana Playground]([https://beta.solpg.io/65efdd2ecffcf4b13384cf98]).
+The lib.rs code also contains a test mod for running unit test on the program's functionalities.
+
+# Server
+
+```bash
+cd server
+yarn
+```
+
+create .env file and paste contents of .env.example (copy .env ./env.example). This is a required step
+
+```bash
+yarn dev
+```
+
+To run the test suite, run 
+
+```bash
+yarn test
+```
 
 to check for test case run 'yarn test'
 
