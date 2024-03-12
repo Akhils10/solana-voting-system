@@ -1,7 +1,6 @@
 ## Voting system
 
 /programs
-/client
 /server
 
 ### Implementation considerations
@@ -28,7 +27,7 @@ Also, while a few edge cases have been handled in the program and the error abst
 
 # Program.
 The solana program code lives in /program folder.
-You can build and deploy the program either locally or in [Solana Playground](https://beta.solpg.io/65efdd2ecffcf4b13384cf98).
+You can build and deploy the program either locally or in [Solana Playground: https://beta.solpg.io/65efdd2ecffcf4b13384cf98](https://beta.solpg.io/65efdd2ecffcf4b13384cf98).
 The lib.rs code also contains a test mod for running unit test on the program's functionalities.
 
 # Server
@@ -51,7 +50,7 @@ yarn test
 ```
 
 # Client
-See readme in /client folder.
+See readme in [https://github.com/akhils/voting-system-ui](https://github.com/akhils/voting-system-ui).
 
 For a full executionflow, first deploy the program, change the PROGRAM_ID variable in .env file in the server, then start the server and the client
 
