@@ -37,7 +37,7 @@ cd server
 yarn
 ```
 
-create .env file and paste contents of .env.example (copy .env ./env.example). This is a required step
+create .env file and paste contents of .env.example (cp .env ./env.example). This is a required step
 
 ```bash
 yarn dev
