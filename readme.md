@@ -20,12 +20,15 @@ Also, please note that this program is only a simple voting program and some oth
 
 To close a topic, we simply just need to close the account
 
+### Imorovement considerations
 To futher improve on the program, the `VotingTopic` state should track the duration for the vote, pubKey of the owner, etc. The owner will be able to reemove or add more options, temporarily pause the voting and be able to schedule when voting begins.
+
+Also, while a few edge cases have been handled in the program and the error abstracted, a proper error handling can be implemented in the NodeJS backend. I didn't do much besides regular validation because of time and my health. 
 
 
 # Program.
 The solana program code lives in /program folder.
-You can build and deploy the program either locally or in [Solana Playground]([https://beta.solpg.io/65efdd2ecffcf4b13384cf98]).
+You can build and deploy the program either locally or in [Solana Playground](https://beta.solpg.io/65efdd2ecffcf4b13384cf98).
 The lib.rs code also contains a test mod for running unit test on the program's functionalities.
 
 # Server
@@ -47,5 +50,8 @@ To run the test suite, run
 yarn test
 ```
 
-to check for test case run 'yarn test'
+# Client
+See readme in /client folder.
+
+For a full executionflow, first deploy the program, change the PROGRAM_ID variable in .env file in the server, then start the server and the client
 

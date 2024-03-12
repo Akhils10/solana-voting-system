@@ -47,7 +47,14 @@ class VoteService {
         throw new Error("Topic options should not exceed 10");
       if (title.length > 150)
         throw new Error("Voting topic is too long. Max of 150 characters.");
-      
+
+      for (const option of options) {
+        if (option.length > 50)
+          throw new Error(
+            "Voting topic option is too long. Max 50 characters."
+          );
+      }
+
       const accountCreationData = await createVotingAccount(this.signer);
       const args = { CreateVoteTopicArgs: { title, options } };
       const instruction = serialize(args);
