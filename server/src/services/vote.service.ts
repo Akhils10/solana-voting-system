@@ -39,9 +39,15 @@ class VoteService {
   public async createVoteTopic(
     title: string,
     options: string[]
-  ): Promise<{signature: string; pubKey: string}> {
+  ): Promise<{ signature: string; pubKey: string }> {
     try {
-      if(options.length > 10) throw new Error("Topic options should not exceed 10")
+      if (!title) throw new Error("Voting topic is required");
+      if (!Array.isArray(options)) throw new Error("Options must be an array");
+      if (options.length > 10)
+        throw new Error("Topic options should not exceed 10");
+      if (title.length > 150)
+        throw new Error("Voting topic is too long. Max of 150 characters.");
+      
       const accountCreationData = await createVotingAccount(this.signer);
       const args = { CreateVoteTopicArgs: { title, options } };
       const instruction = serialize(args);
@@ -51,7 +57,7 @@ class VoteService {
       );
       return {
         signature,
-        pubKey: accountCreationData?.accountPubKey?.toBase58()!
+        pubKey: accountCreationData?.accountPubKey?.toBase58()!,
       };
     } catch (error) {
       console.error("Error creating vote topic:", error);
@@ -59,14 +65,23 @@ class VoteService {
     }
   }
 
-  public async castVote(title: string, option: string, pubKey: string): Promise<string> {
+  public async castVote(
+    title: string,
+    option: string,
+    pubKey: string
+  ): Promise<string> {
     try {
+      if (!title && !option && !pubKey)
+        throw new Error("Invalid arguments for casting votes");
       const args = {
         CastVoteArgs: { title, option },
       };
       const instruction = serialize(args);
-      const signature = await sendInstruction(instruction, new PublicKey(pubKey));
-      return signature
+      const signature = await sendInstruction(
+        instruction,
+        new PublicKey(pubKey)
+      );
+      return signature;
     } catch (error) {
       console.error("Error casting vote:", error);
       throw error;
@@ -75,8 +90,15 @@ class VoteService {
 
   public async fetchVotesCount(topicPubKey: string): Promise<any> {
     try {
-      const accountData = (await getAccountStateData(new PublicKey(topicPubKey))) as any;
-      const totalVotes = accountData?.options.reduce((acc: number, item: any) => acc + item.votes, 0)
+      if (!topicPubKey)
+        throw new Error("Invalid arguments for fetching vote count");
+      const accountData = (await getAccountStateData(
+        new PublicKey(topicPubKey)
+      )) as any;
+      const totalVotes = accountData?.options.reduce(
+        (acc: number, item: any) => acc + item.votes,
+        0
+      );
       return {
         totalVotes,
         options: accountData?.options,
@@ -91,7 +113,7 @@ class VoteService {
     try {
       const topics = (await getAllProgramAccounts()) as any;
       return {
-        topics
+        topics,
       };
     } catch (error) {
       console.error("Error fetching vote count:", error);
