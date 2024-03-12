@@ -50,7 +50,7 @@ yarn test
 ```
 
 # Client
-See readme in [https://github.com/akhils/voting-system-ui](https://github.com/akhils/voting-system-ui).
+See readme in [https://github.com/akhils10/voting-system-ui](https://github.com/akhils10/voting-system-ui).
 
-For a full executionflow, first deploy the program, change the PROGRAM_ID variable in .env file in the server, then start the server and the client
+For a full execution flow, first deploy the program, change the PROGRAM_ID variable in .env file in the server, then start the server and the client
 
